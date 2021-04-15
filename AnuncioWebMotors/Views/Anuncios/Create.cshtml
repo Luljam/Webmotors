@@ -1,0 +1,121 @@
+﻿@model AnuncioWebMotors.Models.Anuncio
+
+@{
+    ViewData["Title"] = "Incluir Anúncio";
+}
+
+<h1>Incluir Novo Anúncio</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label for="marca">Marca:</label>
+                <select id="marca" asp-for="Marca" class="form-control">
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="modelo">Modelo:</label>
+                <select id="modelo" asp-for="Modelo" class="form-control">
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="versao">Versão:</label>
+                <select id="versao" asp-for="Versao" class="form-control">
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ano" class="control-label"></label>
+                <input asp-for="Ano" class="form-control" />
+                <span asp-validation-for="Ano" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quilometragem" class="control-label"></label>
+                <input asp-for="Quilometragem" class="form-control" />
+                <span asp-validation-for="Quilometragem" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Observacao" class="control-label"></label>
+                <input asp-for="Observacao" class="form-control" />
+                <span asp-validation-for="Observacao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Incluir" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Voltar para a Lista</a>
+</div>
+
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#marca").prop("disabled", true);
+            $("#modelo").prop("disabled", true);
+            $("#versao").prop( "disabled", true );
+
+            $.ajax({
+                type: "GET",
+                url: "/Veiculo/GetListaMarcas",
+                data: "{}",
+                success: function (data) {
+                    var s = '<option value="-1">Selecione a marca</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option id="'+data[i].id +'" value="' + data[i].name + '">' + data[i].name + '</option>';
+                    }
+                    $("#marca").html(s);
+                    $("#marca").prop( "disabled", false );
+                }
+            });
+
+
+            $('#marca').change(function () {
+                var idMarca = $('#marca option:selected').attr('id');
+                debugger;
+
+                $.ajax({
+                    type: "GET",
+                    url: "/Veiculo/GetListaModelos?idMarca=" + idMarca,
+                    success: function (data) {
+                        var s = '<option value="-1">Selecione o modelo</option>';
+                        for (var i = 0; i < data.length; i++) {
+                            s += '<option id="'+data[i].id +'" value="' + data[i].name + '">' + data[i].name + '</option>'
+                        }
+                        $("#modelo").html(s);
+                        $("#modelo").prop( "disabled", false );
+                    }
+                });
+
+            });
+
+            $('#modelo').change(function () {
+                var idModelo = $('#modelo option:selected').attr('id');
+                debugger;
+
+                $.ajax({
+                    type: "GET",
+                    url: "/Veiculo/GetListaVersao?idModelo=" + idModelo,
+                    success: function (data) {
+                        var s = '<option value="-1">Selecione o modelo</option>';
+                        for (var i = 0; i < data.length; i++) {
+                            s += '<option id="'+data[i].id +'" value="' + data[i].name + '">' + data[i].name + '</option>'
+                        }
+                        $("#versao").html(s);
+                        $("#versao").prop( "disabled", false );
+                    }
+                });
+
+            });
+        });
+
+    </script>
+}
