@@ -38,7 +38,7 @@ namespace AnuncioWebMotors.Repositories
                 }
                 else
                 {
-                    throw new Exception("Não foi possível buscar os carros.");
+                    throw new Exception("Não foi possível buscar os modelos.");
                 }
             }
             catch (Exception ex)
@@ -66,11 +66,11 @@ namespace AnuncioWebMotors.Repositories
                         return marcas;
                     }
 
-                    throw new Exception("Nenhum carro foi encontrado.");
+                    throw new Exception("Nenhum marcas foi encontrado.");
                 }
                 else
                 {
-                    throw new Exception("Não foi possível buscar os carros.");
+                    throw new Exception("Não foi possível marcas os carros.");
                 }
             }
            
