@@ -57,6 +57,9 @@ function CarregarCombos() {
                 }
                 $("#versao").html(s);
                 $("#versao").prop("disabled", false);
+            },
+            error: function (xhr, er) {
+                $('#mensagem_error').html('Error ' +xhr.status + ' - ' + xhr.statusText +' Tipo de erro: '+ er)
             }
         });
 
