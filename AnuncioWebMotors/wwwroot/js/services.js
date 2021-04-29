@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-   
+
 
     CarregarCombos();
 });
@@ -38,6 +38,9 @@ function CarregarCombos() {
                 }
                 $("#modelo").html(s);
                 $("#modelo").prop("disabled", false);
+            },
+            error: function (xhr, er) {
+                $('#mensagem_error').html('Error ' + xhr.status + ' - ' + xhr.statusText + ' Tipo de erro: ' + er)
             }
         });
 
@@ -59,7 +62,7 @@ function CarregarCombos() {
                 $("#versao").prop("disabled", false);
             },
             error: function (xhr, er) {
-                $('#mensagem_error').html('Error ' +xhr.status + ' - ' + xhr.statusText +' Tipo de erro: '+ er)
+                $('#mensagem_error').html('<p class="alert alert-danger">Error ' + xhr.status + ' - ' + xhr.statusText + '. Tipo de erro: ' + er + '</p>')
             }
         });
 

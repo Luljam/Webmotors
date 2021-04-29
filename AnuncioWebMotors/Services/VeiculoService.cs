@@ -21,9 +21,21 @@ namespace AnuncioWebMotors.Repositories
         {
             try
             {
+                // Poderia usar baseAddress
+                // httpClient.BaseAddress = new System.Uri("http://desafioonline.webmotors.com.br/api/OnlineChallenge/");
+                // HttpResponseMessage resposta = await httpClient.GetAsync($"Model?MakeID={marcarId}");
+                // resposta.EnsureSuccessStatusCode(); // o método verific se está na família 200, não faz nada, senão gera uma excessão
+                // var result = await response.Content.ReadAsAsync<Modelo>(); // o .net já descerializa desta forma convertendo para o tipo do model
+                // if(model == null){
+                //      return NotFound();
+                // }
+                // return model;
+
+
+
                 var uri = new Uri("http://desafioonline.webmotors.com.br/api/OnlineChallenge/Model?MakeID=" + marcaId);
                 var response = await httpClient.GetAsync(uri);
-
+                
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsStringAsync();
